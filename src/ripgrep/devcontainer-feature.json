@@ -1,0 +1,21 @@
+{
+  "id": "ripgrep",
+  "version": "1.0.0",
+  "name": "Ripgrep",
+  "description": "Installs ripgrep (rg) with automatic Linux distribution detection",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "ripgrep version to install. Use 'latest' for the repository version or specify a GitHub version (e.g. '14.1.0')"
+    },
+    "installFromGithub": {
+      "type": "boolean",
+      "default": false,
+      "description": "Install from GitHub releases instead of the package manager (allows pinning a specific version)"
+    }
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils"
+  ]
+}

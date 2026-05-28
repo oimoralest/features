@@ -1,0 +1,133 @@
+# Tmux Configuration Example
+# Copia este archivo a ~/.tmux.conf para usarlo
+
+# ============================================
+# CONFIGURACIÓN BÁSICA
+# ============================================
+
+# Usa Ctrl+a como prefix en lugar de Ctrl+b (más cómodo)
+# set-option -g prefix C-a
+# unbind-key C-b
+# bind-key C-a send-prefix
+
+# Índice de ventanas y paneles empieza en 1 (no en 0)
+set -g base-index 1
+setw -g pane-base-index 1
+
+# Renumerar ventanas automáticamente
+set -g renumber-windows on
+
+# Aumentar el límite del historial
+set -g history-limit 10000
+
+# Habilitar mouse
+set -g mouse on
+
+# Reducir el delay de escape (mejor para vim/neovim)
+set -sg escape-time 0
+
+# Aumentar el tiempo de display de mensajes
+set -g display-time 2000
+
+# ============================================
+# COLORES Y APARIENCIA
+# ============================================
+
+# Habilitar colores de 256 bits
+set -g default-terminal "screen-256color"
+set -ga terminal-overrides ",xterm-256color:Tc"
+
+# Status bar
+set -g status-style bg=colour234,fg=colour137
+set -g status-left ''
+set -g status-right '#[fg=colour233,bg=colour241,bold] %d/%m #[fg=colour233,bg=colour245,bold] %H:%M:%S '
+set -g status-right-length 50
+set -g status-left-length 20
+
+# Ventana activa
+setw -g window-status-current-style fg=colour81,bg=colour238,bold
+setw -g window-status-current-format ' #I#[fg=colour250]:#[fg=colour255]#W#[fg=colour50]#F '
+
+# Ventanas inactivas
+setw -g window-status-style fg=colour138,bg=colour235,none
+setw -g window-status-format ' #I#[fg=colour237]:#[fg=colour250]#W#[fg=colour244]#F '
+
+# Panes
+set -g pane-border-style fg=colour238
+set -g pane-active-border-style fg=colour51
+
+# Mensajes
+set -g message-style fg=colour232,bg=colour166,bold
+
+# ============================================
+# ATAJOS DE TECLADO
+# ============================================
+
+# Recargar configuración
+bind r source-file ~/.tmux.conf \; display "¡Configuración recargada!"
+
+# Split de paneles más intuitivo
+bind | split-window -h -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+unbind '"'
+unbind %
+
+# Navegación entre paneles estilo vim
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Redimensionar paneles
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
+
+# Navegación entre ventanas
+bind -r C-h select-window -t :-
+bind -r C-l select-window -t :+
+
+# Nueva ventana en el directorio actual
+bind c new-window -c "#{pane_current_path}"
+
+# Copiar al portapapeles del sistema (requiere xclip en Linux)
+bind -T copy-mode-vi v send-keys -X begin-selection
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -selection clipboard"
+
+# ============================================
+# TPM - TMUX PLUGIN MANAGER
+# ============================================
+# Descomenta esta sección si instalaste TPM (installPluginManager: true)
+
+# List of plugins
+# set -g @plugin 'tmux-plugins/tpm'
+# set -g @plugin 'tmux-plugins/tmux-sensible'
+# set -g @plugin 'tmux-plugins/tmux-resurrect'  # Guardar/restaurar sesiones
+# set -g @plugin 'tmux-plugins/tmux-continuum'  # Auto-guardar sesiones
+# set -g @plugin 'tmux-plugins/tmux-yank'       # Mejor integración con clipboard
+# set -g @plugin 'tmux-plugins/tmux-pain-control'  # Mejor control de paneles
+
+# Configuración de plugins
+# set -g @continuum-restore 'on'  # Restaurar automáticamente al iniciar
+
+# Initialize TMUX plugin manager (keep this line at the very bottom)
+# run '~/.tmux/plugins/tpm/tpm'
+
+# ============================================
+# NOTAS
+# ============================================
+# Para aplicar cambios: Ctrl+b luego :source-file ~/.tmux.conf
+# O usa el atajo: Ctrl+b r (definido arriba)
+#
+# Atajos útiles por defecto:
+# Ctrl+b c       - Nueva ventana
+# Ctrl+b ,       - Renombrar ventana
+# Ctrl+b n       - Siguiente ventana
+# Ctrl+b p       - Ventana anterior
+# Ctrl+b d       - Desconectar de sesión
+# Ctrl+b [       - Modo de copia (usa q para salir)
+# Ctrl+b ]       - Pegar
+# Ctrl+b z       - Zoom de panel (toggle)
+# Ctrl+b x       - Cerrar panel
+# Ctrl+b &       - Cerrar ventana

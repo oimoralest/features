@@ -1,0 +1,21 @@
+{
+  "id": "tmux",
+  "version": "1.0.0",
+  "name": "Tmux",
+  "description": "Installs tmux with automatic Linux distribution detection",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "tmux version to install (latest uses the distro's package manager)"
+    },
+    "installPluginManager": {
+      "type": "boolean",
+      "default": false,
+      "description": "Install TPM (Tmux Plugin Manager)"
+    }
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils"
+  ]
+}

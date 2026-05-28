@@ -1,0 +1,30 @@
+name: Test features
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        feature:
+          - tmux
+          - neovim
+          - ripgrep
+        base-image:
+          - mcr.microsoft.com/devcontainers/base:ubuntu
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Test ${{ matrix.feature }} on ${{ matrix.base-image }}
+        uses: devcontainers/action@v1
+        with:
+          features-test: "true"
+          features: ${{ matrix.feature }}
+          base-image: ${{ matrix.base-image }}
