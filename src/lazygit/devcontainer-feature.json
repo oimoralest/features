@@ -1,0 +1,17 @@
+{
+  "id": "lazygit",
+  "version": "1.0.0",
+  "name": "Lazygit",
+  "description": "Installs Lazygit from GitHub releases (prebuilt binaries)",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "Lazygit version to install: 'latest' or a specific version (e.g. '0.43.1' or 'v0.43.1')"
+    }
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils",
+    "ghcr.io/devcontainers/features/git"
+  ]
+}

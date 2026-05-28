@@ -70,6 +70,27 @@ Installs ripgrep (rg), an extremely fast search tool.
 
 ---
 
+### Lazygit (`ghcr.io/oimoralest/features/lazygit`)
+
+Installs [Lazygit](https://github.com/jesseduffield/lazygit), a terminal UI for git, from GitHub releases (prebuilt binaries).
+
+- Supports `latest` or a specific version (e.g. `0.43.1`)
+- Official binaries — does not compile from source
+
+```json
+{
+  "features": {
+    "ghcr.io/oimoralest/features/lazygit:1": {
+      "version": "latest"
+    }
+  }
+}
+```
+
+📖 [Full documentation](./src/lazygit/README.md)
+
+---
+
 ## How to use
 
 ### 1. Add the features to your `devcontainer.json`
@@ -80,7 +101,8 @@ Installs ripgrep (rg), an extremely fast search tool.
   "features": {
     "ghcr.io/oimoralest/features/tmux:1": {},
     "ghcr.io/oimoralest/features/neovim:1": {},
-    "ghcr.io/oimoralest/features/ripgrep:1": {}
+    "ghcr.io/oimoralest/features/ripgrep:1": {},
+    "ghcr.io/oimoralest/features/lazygit:1": {}
   }
 }
 ```
@@ -102,18 +124,21 @@ devcontainer up --workspace-folder .
 tmux -V
 nvim --version
 rg --version
+lazygit --version
 ```
 
 ## Supported distributions
 
-| Distribution  | Manager | Tmux | Neovim | Ripgrep |
-|---------------|---------|------|--------|---------|
-| Debian/Ubuntu | apt     | ✅   | ✅     | ✅      |
-| Alpine Linux  | apk     | ✅   | ✅     | ✅      |
-| RHEL/CentOS   | yum     | ✅   | ✅     | ✅      |
-| Fedora        | dnf     | ✅   | ✅     | ✅      |
-| Arch Linux    | pacman  | ✅   | ✅     | ✅      |
-| OpenSUSE      | zypper  | ✅   | ✅     | ✅      |
+| Distribution  | Manager | Tmux | Neovim | Ripgrep | Lazygit |
+|---------------|---------|------|--------|---------|---------|
+| Debian/Ubuntu | apt     | ✅   | ✅     | ✅      | ✅      |
+| Alpine Linux  | apk     | ✅   | ✅     | ✅      | ✅      |
+| RHEL/CentOS   | yum     | ✅   | ✅     | ✅      | ✅      |
+| Fedora        | dnf     | ✅   | ✅     | ✅      | ✅      |
+| Arch Linux    | pacman  | ✅   | ✅     | ✅      | ✅      |
+| OpenSUSE      | zypper  | ✅   | ✅     | ✅      | ✅      |
+
+Lazygit and Neovim install from GitHub releases (prebuilt binaries), so they work on any distro with a supported architecture.
 
 ## Repo structure
 
@@ -130,11 +155,15 @@ rg --version
 │   │   ├── devcontainer-feature.json
 │   │   ├── install.sh
 │   │   └── README.md
-│   └── ripgrep/
+│   ├── ripgrep/
+│   │   ├── devcontainer-feature.json
+│   │   ├── install.sh
+│   │   ├── README.md
+│   │   └── .ripgreprc.example
+│   └── lazygit/
 │       ├── devcontainer-feature.json
 │       ├── install.sh
-│       ├── README.md
-│       └── .ripgreprc.example
+│       └── README.md
 └── .github/
     └── workflows/
         └── release.yaml                 # Publishes to GHCR

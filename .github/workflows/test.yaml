@@ -16,6 +16,7 @@ jobs:
           - tmux
           - neovim
           - ripgrep
+          - lazygit
         base-image:
           - mcr.microsoft.com/devcontainers/base:ubuntu
     steps:
